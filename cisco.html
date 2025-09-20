@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco IOS Configuration Modes Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            border-left: 4px solid #2a5298;
+        }
+        
+        .answers {
+            margin-bottom: 30px;
+        }
+        
+        .answer {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .answer:hover {
+            border-color: #2a5298;
+            box-shadow: 0 2px 8px rgba(42, 82, 152, 0.1);
+        }
+        
+        .answer input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .answer label {
+            cursor: pointer;
+            flex: 1;
+            font-weight: 400;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        #startButton {
+            display: block;
+            margin: 0 auto;
+            font-size: 1.3em;
+            padding: 20px 40px;
+        }
+        
+        .result {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .result h2 {
+            color: #2a5298;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        
+        .score-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        
+        .form-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .form-section h3 {
+            color: #2a5298;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            height: 6px;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #2a5298, #667eea);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Cisco IOS Configuration Modes Quiz</h1>
+            <p>Test your knowledge of Cisco IOS command-line interface modes</p>
+        </div>
+        
+        <div class="content">
+            <button class="btn" id="startButton" onclick="startQuiz()">Start Quiz</button>
+            
+            <div id="quizContent" style="display: none;">
+                <!-- Quiz content will be populated by JavaScript -->
+            </div>
+            
+            <div class="form-section">
+                <h3>Add New Question</h3>
+                <form id="quizDataForm">
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <input type="text" id="question" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="option1">Option 1:</label>
+                        <input type="text" id="option1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="option2">Option 2:</label>
+                        <input type="text" id="option2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="option3">Option 3:</label>
+                        <input type="text" id="option3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="option4">Option 4:</label>
+                        <input type="text" id="option4" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="answer">Correct Answer:</label>
+                        <select id="answer" required>
+                            <option value="">Select correct answer</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                            <option value="option4">Option 4</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Add Question</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const initialQuizData = [
+            {
+                "question": "1. What is the prompt for User EXEC mode in Cisco IOS?",
+                "options": ["Router#", "Router>", "Router(config)#", "Router(config-if)#"],
+                "answer": "Router>"
+            },
+            {
+                "question": "2. How do you enter Privileged EXEC mode from User EXEC mode?",
+                "options": ["configure terminal", "enable", "login", "exec"],
+                "answer": "enable"
+            },
+            {
+                "question": "3. What command is used to save configuration changes in Privileged EXEC mode?",
+                "options": ["save config", "write memory", "copy config", "commit"],
+                "answer": "write memory"
+            },
+            {
+                "question": "4. In which mode can you configure static routes directly?",
+                "options": ["User EXEC", "Privileged EXEC", "Global Configuration", "Interface Configuration"],
+                "answer": "Global Configuration"
+            },
+            {
+                "question": "5. What is the prompt for Global Configuration mode?",
+                "options": ["Router>", "Router#", "Router(config)#", "Router(config-line)#"],
+                "answer": "Router(config)#"
+            },
+            {
+                "question": "6. Which command enters Interface Configuration mode?",
+                "options": ["interface gig0/0", "line con 0", "router ospf 1", "vlan 10"],
+                "answer": "interface gig0/0"
+            },
+            {
+                "question": "7. In Line Configuration mode, which command sets a password?",
+                "options": ["password cisco", "enable password", "ip address", "no shutdown"],
+                "answer": "password cisco"
+            },
+            {
+                "question": "8. What does 'no shutdown' do in Interface Configuration mode?",
+                "options": ["Disables the interface", "Enables the interface", "Deletes the interface", "Shows status"],
+                "answer": "Enables the interface"
+            },
+            {
+                "question": "9. Which mode is used for configuring dynamic routing protocols like OSPF?",
+                "options": ["Global Configuration", "Router Configuration", "Interface Configuration", "Line Configuration"],
+                "answer": "Router Configuration"
+            },
+            {
+                "question": "10. How do you enter Router Configuration mode for OSPF?",
+                "options": ["router ospf 1", "ip route ospf", "network ospf", "configure ospf"],
+                "answer": "router ospf 1"
+            },
+            {
+                "question": "11. What command in Privileged EXEC mode generates RSA keys?",
+                "options": ["crypto key generate rsa", "ssh key generate", "enable rsa", "key rsa"],
+                "answer": "crypto key generate rsa"
+            },
+            {
+                "question": "12. In Global Configuration mode, which command configures a static route?",
+                "options": ["ip route 0.0.0.0 0.0.0.0 192.168.1.1", "route add 0.0.0.0", "static route", "network route"],
+                "answer": "ip route 0.0.0.0 0.0.0.0 192.168.1.1"
+            },
+            {
+                "question": "13. What is the function of 'logging synchronous' in Line Configuration mode?",
+                "options": ["Prevents log messages from interrupting commands", "Enables logging", "Disables logging", "Sets log level"],
+                "answer": "Prevents log messages from interrupting commands"
+            },
+            {
+                "question": "14. Which CLI key combination moves the cursor to the beginning of the line?",
+                "options": ["Ctrl+E", "Ctrl+A", "Ctrl+K", "Ctrl+U"],
+                "answer": "Ctrl+A"
+            },
+            {
+                "question": "15. What does Ctrl+C do in Cisco IOS?",
+                "options": ["Exits configuration mode", "Interrupts a running command", "Clears the line", "Moves to end of line"],
+                "answer": "Interrupts a running command"
+            },
+            {
+                "question": "16. Which key recalls the previous command in history?",
+                "options": ["Down Arrow", "Up Arrow", "Left Arrow", "Right Arrow"],
+                "answer": "Up Arrow"
+            },
+            {
+                "question": "17. What command in Interface Configuration mode applies an ACL inbound?",
+                "options": ["ip access-group 101 in", "access-list 101 in", "acl 101 in", "filter 101 in"],
+                "answer": "ip access-group 101 in"
+            },
+            {
+                "question": "18. In Router Configuration mode for RIP, what does 'version 2' do?",
+                "options": ["Enables RIPv1", "Enables RIPv2", "Disables RIP", "Sets version 1"],
+                "answer": "Enables RIPv2"
+            },
+            {
+                "question": "19. What is the purpose of 'spanning-tree portfast' in Interface mode?",
+                "options": ["Enables fast port transition", "Disables STP", "Sets STP cost", "Enables BPDU guard"],
+                "answer": "Enables fast port transition"
+            },
+            {
+                "question": "20. Which mode allows configuring VTY lines for SSH access?",
+                "options": ["Interface Configuration", "Line Configuration", "Router Configuration", "Global Configuration"],
+                "answer": "Line Configuration"
+            },
+            {
+                "question": "21. What does Ctrl+K do in the CLI?",
+                "options": ["Deletes to end of line", "Deletes entire line", "Moves to end", "Interrupts command"],
+                "answer": "Deletes to end of line"
+            },
+            {
+                "question": "22. In which mode can you directly set the hostname without submodes?",
+                "options": ["User EXEC", "Privileged EXEC", "Global Configuration", "Both Privileged and Global"],
+                "answer": "Both Privileged and Global"
+            },
+            {
+                "question": "23. What command enters VLAN Configuration mode?",
+                "options": ["vlan 10", "interface vlan 10", "vlan config 10", "switchport vlan 10"],
+                "answer": "vlan 10"
+            },
+            {
+                "question": "24. What is the function of Tab key in Cisco CLI?",
+                "options": ["Completes command", "Shows help", "Moves cursor", "Deletes character"],
+                "answer": "Completes command"
+            },
+            {
+                "question": "25. Which key combination clears the entire command line?",
+                "options": ["Ctrl+U", "Ctrl+K", "Ctrl+A", "Ctrl+E"],
+                "answer": "Ctrl+U"
+            },
+            {
+                "question": "26. What command is used to enter Global Configuration mode?",
+                "options": ["configure terminal", "config t", "conf t", "All of the above"],
+                "answer": "All of the above"
+            },
+            {
+                "question": "27. What is the prompt for Router Configuration mode?",
+                "options": ["Router(config)#", "Router(config-router)#", "Router(router)#", "Router(route)#"],
+                "answer": "Router(config-router)#"
+            },
+            {
+                "question": "28. Which command enables password encryption globally?",
+                "options": ["service password-encryption", "enable password-encryption", "password encrypt", "crypto password"],
+                "answer": "service password-encryption"
+            },
+            {
+                "question": "29. What is the prompt for DHCP Pool Configuration mode?",
+                "options": ["Router(dhcp)#", "Router(dhcp-config)#", "Router(config-dhcp)#", "Router(pool)#"],
+                "answer": "Router(dhcp-config)#"
+            },
+            {
+                "question": "30. In Interface Configuration mode, which command sets the IP address?",
+                "options": ["ip address 192.168.1.1 255.255.255.0", "address 192.168.1.1/24", "set ip 192.168.1.1", "ip 192.168.1.1"],
+                "answer": "ip address 192.168.1.1 255.255.255.0"
+            },
+            {
+                "question": "31. What command shows the current running configuration?",
+                "options": ["show config", "show running-config", "show run", "Both B and C"],
+                "answer": "Both B and C"
+            },
+            {
+                "question": "32. In Line Configuration mode, what does 'transport input ssh' do?",
+                "options": ["Enables SSH only", "Disables SSH", "Enables Telnet only", "Enables both SSH and Telnet"],
+                "answer": "Enables SSH only"
+            },
+            {
+                "question": "33. What is the default privilege level for User EXEC mode?",
+                "options": ["Level 0", "Level 1", "Level 15", "Level 10"],
+                "answer": "Level 1"
+            },
+            {
+                "question": "34. Which command creates a standard numbered ACL?",
+                "options": ["access-list 1 permit any", "ip access-list standard 1", "acl 1 standard", "standard-acl 1"],
+                "answer": "access-list 1 permit any"
+            },
+            {
+                "question": "35. What is the prompt for VLAN Configuration mode?",
+                "options": ["Router(vlan)#", "Router(config-vlan)#", "Router(vlan-config)#", "Router(config-v)#"],
+                "answer": "Router(config-vlan)#"
+            },
+            {
+                "question": "36. In Router Configuration mode for EIGRP, which command disables auto-summarization?",
+                "options": ["no auto-summary", "no summarization", "disable auto-summary", "auto-summary off"],
+                "answer": "no auto-summary"
+            },
+            {
+                "question": "37. What does the '?' character do in Cisco CLI?",
+                "options": ["Shows help", "Cancels command", "Completes command", "Shows history"],
+                "answer": "Shows help"
+            },
+            {
+                "question": "38. Which command in Interface mode enables switchport functionality?",
+                "options": ["switchport", "enable switchport", "switchport enable", "port switch"],
+                "answer": "switchport"
+            },
+            {
+                "question": "39. What is the function of 'exec-timeout 0 0' in Line Configuration mode?",
+                "options": ["Sets timeout to 0 seconds", "Disables timeout", "Sets infinite timeout", "Both B and C"],
+                "answer": "Both B and C"
+            },
+            {
+                "question": "40. In BGP Router Configuration mode, which command defines a neighbor?",
+                "options": ["neighbor 192.168.1.1 remote-as 65001", "bgp neighbor 192.168.1.1", "peer 192.168.1.1 as 65001", "remote-as 192.168.1.1 65001"],
+                "answer": "neighbor 192.168.1.1 remote-as 65001"
+            },
+            {
+                "question": "41. What command enters Line Configuration mode for VTY lines 0-4?",
+                "options": ["line vty 0 4", "line virtual 0-4", "vty line 0 4", "terminal vty 0 4"],
+                "answer": "line vty 0 4"
+            },
+            {
+                "question": "42. Which command in Global Configuration mode creates a DHCP pool?",
+                "options": ["dhcp pool LAN", "ip dhcp pool LAN", "create dhcp pool LAN", "dhcp create pool LAN"],
+                "answer": "ip dhcp pool LAN"
+            },
+            {
+                "question": "43. What does 'switchport mode trunk' do in Interface Configuration mode?",
+                "options": ["Sets interface to access mode", "Sets interface to trunk mode", "Disables switchport", "Creates a trunk link"],
+                "answer": "Sets interface to trunk mode"
+            },
+            {
+                "question": "44. In OSPF Router Configuration mode, which command sets the router ID?",
+                "options": ["router-id 1.1.1.1", "id 1.1.1.1", "ospf router-id 1.1.1.1", "set router-id 1.1.1.1"],
+                "answer": "router-id 1.1.1.1"
+            },
+            {
+                "question": "45. What is the purpose of 'ip nat inside' in Interface Configuration mode?",
+                "options": ["Designates interface as NAT inside", "Enables NAT translation", "Creates NAT rule", "Disables NAT"],
+                "answer": "Designates interface as NAT inside"
+            },
+            {
+                "question": "46. Which command shows interface status briefly?",
+                "options": ["show interfaces", "show ip interface brief", "show int brief", "Both B and C"],
+                "answer": "Both B and C"
+            },
+            {
+                "question": "47. What does 'passive-interface default' do in Router Configuration mode?",
+                "options": ["Makes all interfaces active", "Makes all interfaces passive", "Disables all interfaces", "Sets default interface"],
+                "answer": "Makes all interfaces passive"
+            },
+            {
+                "question": "48. In Interface Configuration mode, which command sets interface description?",
+                "options": ["description LAN Interface", "desc LAN Interface", "interface-description LAN Interface", "name LAN Interface"],
+                "answer": "description LAN Interface"
+            },
+            {
+                "question": "49. What is the prompt for Policy Map Configuration mode?",
+                "options": ["Router(config-pmap)#", "Router(policy-map)#", "Router(config-policy)#", "Router(pmap)#"],
+                "answer": "Router(config-pmap)#"
+            },
+            {
+                "question": "50. Which command in Global Configuration mode enables AAA?",
+                "options": ["aaa new-model", "enable aaa", "aaa enable", "authentication aaa"],
+                "answer": "aaa new-model"
+            }
+        ];
+
+        // Note: localStorage is not supported in this environment, so we'll use variables instead
+        let quizData = [...initialQuizData];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let quizStarted = false;
+
+        // Start the quiz
+        function startQuiz() {
+            score = 0;
+            currentQuestionIndex = 0;
+            quizStarted = true;
+
+            document.getElementById('startButton').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'block';
+
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            if (currentQuestionIndex < quizData.length) {
+                const questionData = quizData[currentQuestionIndex];
+                const progress = ((currentQuestionIndex / quizData.length) * 100).toFixed(1);
+                
+                const quizContent = `
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                    <p style="text-align: center; margin-bottom: 30px; color: #666;">
+                        Question ${currentQuestionIndex + 1} of ${quizData.length} (${progress}% complete)
+                    </p>
+                    <div class="question">${questionData.question}</div>
+                    <div class="answers">
+                        ${questionData.options.map((option, index) => `
+                            <div class="answer">
+                                <input type="radio" name="answer" value="${option}" id="option${index}">
+                                <label for="option${index}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="btn" id="next-button" onclick="submitAnswer()">
+                        ${currentQuestionIndex === quizData.length - 1 ? 'Finish Quiz' : 'Next Question'}
+                    </button>
+                `;
+                document.getElementById('quizContent').innerHTML = quizContent;
+            } else {
+                showResult();
+            }
+        }
+
+        // Submit the answer and move to the next question
+        function submitAnswer() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            
+            if (selectedAnswer) { 
+                const selectedOption = selectedAnswer.value;
+                const correctAnswer = quizData[currentQuestionIndex].answer; 
+
+                if (selectedOption === correctAnswer) {
+                    score++; 
+                }
+            }
+
+            currentQuestionIndex++; 
+            loadQuestion(); 
+        }
+
+        // Show the result
+        function showResult() {
+            const percentage = ((score / quizData.length) * 100).toFixed(1);
+            let performance = '';
+            
+            if (percentage >= 90) performance = 'Excellent!';
+            else if (percentage >= 80) performance = 'Very Good!';
+            else if (percentage >= 70) performance = 'Good!';
+            else if (percentage >= 60) performance = 'Fair';
+            else performance = 'Needs Improvement';
+            
+            const resultContent = `
+                <div class="result">
+                    <h2>${performance}</h2>
+                    <div class="score-details">
+                        <p><strong>Your Score: ${score} out of ${quizData.length}</strong></p>
+                        <p><strong>Percentage: ${percentage}%</strong></p>
+                    </div>
+                    <button class="btn" id="restart-button" onclick="restartQuiz()">Take Quiz Again</button>
+                </div>
+            `;
+            document.getElementById('quizContent').innerHTML = resultContent;
+        }
+
+        // Restart the quiz
+        function restartQuiz() {
+            quizStarted = false;
+            document.getElementById('startButton').style.display = 'block';
+            document.getElementById('quizContent').style.display = 'none';
+        }
+
+        // Handle form submission to add quiz data
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('quizDataForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const question = document.getElementById('question').value;
+                const option1 = document.getElementById('option1').value;
+                const option2 = document.getElementById('option2').value;
+                const option3 = document.getElementById('option3').value;
+                const option4 = document.getElementById('option4').value;
+                const answerSelect = document.getElementById('answer').value;
+                
+                let correctAnswer = '';
+                switch(answerSelect) {
+                    case 'option1': correctAnswer = option1; break;
+                    case 'option2': correctAnswer = option2; break;
+                    case 'option3': correctAnswer = option3; break;
+                    case 'option4': correctAnswer = option4; break;
+                }
+
+                const newQuestion = {
+                    question: `${quizData.length + 1}. ${question}`,
+                    options: [option1, option2, option3, option4],
+                    answer: correctAnswer
+                };
+
+                quizData.push(newQuestion);
+                document.getElementById('quizDataForm').reset();
+                alert('Question added successfully! Total questions: ' + quizData.length);
+            });
+        });
+    </script>
+</body>
+</html>
